@@ -8,6 +8,9 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/***
+ * 전화번호부 treemap으로 구현
+ */
 public class Quiz1 {
 
     private static final Logger logger = LoggerFactory.getLogger(Quiz1.class);
@@ -26,6 +29,10 @@ public class Quiz1 {
     }
 
 }
+
+/***
+ * 전화번호부
+ */
 class PhoneDirectory {
     private static Scanner scanner = new Scanner(System.in);
 
@@ -34,11 +41,16 @@ class PhoneDirectory {
         PhoneEntry = new TreeMap<String,String>();
     }
 
-    public String getNumber( String name ) {
-        return PhoneEntry.get(name);
-    }
+//    public String getNumber( String name ) {
+//        return PhoneEntry.get(name);
+//    }
 
-    public void addNumber() {
+
+    /***
+     * 전화번호 추가
+     * @throws IllegalArgumentException 이름이나 번호가 없는경우
+     */
+    public void addNumber()throws IllegalArgumentException {
         String value;
         StringTokenizer stringTokenizer;
         while (!(value = scanner.nextLine()).equals(""))
@@ -56,6 +68,9 @@ class PhoneDirectory {
     }
 
 
+    /***
+     * 모든사람 출력
+      */
     public void print() {
         for ( Map.Entry<String,String> entry : PhoneEntry.entrySet() )
             System.out.println( entry.getKey() + ":  " + entry.getValue() );
