@@ -1,0 +1,634 @@
+Generic Programing 이란?
+
+다양한 type에서 작동하는 코드 -> 이게 무슨 말 이냐?
+
+자바는 기본적으로 타입을 정해줘야 함
+
+메서드에 들어가는 파라미터든 , 그냥 변수든 타입이 없이는 선언 자체가 불가능해
+
+num=5; 이거 안되잖아
+
+무조건 type checking 을 해주는 언어야
+
+근데 이 타입을 파라미터처럼 정해주면 어떨까?
+
+즉 parameterized type을 사용하면 어떨까?
+
+parameter 처럼 type을 외부에서 받아오는 거지
+
+그걸 우리는 <T> 라고 불러
+
+그리고 이 parameterized type에는 class 나 interface만 올 수 있어
+
+즉 primitive는 , 객체가 아닌 애들은 올 수가 없어
+
+이 Generic에 대표적인 예시는 우리가 사용하는 List<T>list = new ArrayList<>(); 야
+
+List는 특정한 타입으로 만들어진게 아니라 그냥 <T>타입으로 만들어져있어
+
+따라서 내가 클래스를 만들거나 인터페이스를 만들어서 갖다 넣어도 아무런 문제가 없어
+
+이건 새로운 타입을 창조해서 넣는건데도 말이지.
+
+
+이런 개념을 갖고 시작하는게 Generic Programing 이야 .
+
+자바의 Polymorphism중에 하나기도 해
+
+
+Smalltalk 라는 객체지향 언어가 있어
+
+얘는 완전 초기의 언어인데 , 변수에 type이 존재하지 않아
+
+모든 변수는 모든 type의 data를 갖을수 있어
+
+또 모든 데이터는 객체이며 객체에 대한 모든 작업은 메서드에 의해 정의돼
+
+
+듣기에는 매우 편하게 들리잖아 , 코드 한번만 짜놓으면 그게 int,double,String,char,boolean 어떤게 와도
+문제가 없다는 소리인데 .
+
+실제로 이건 프로그램을 더 쉽게 짜게 만들어줘 , 하지만 견고한 프로그램을 만드는데는 어려워
+
+왜?? 모든 type을 갖고 있을 수 있으니까 , 이 자료구조가 내가 원하는 type만 갖고있는지 체크하기가 어려움
+
+컴파일러가 이런걸 인지할수도 없고 , 곤란한 사항이 많음.
+
+
+반대로 C++은 강력한 type언어야 , 모든 것에 type을 정의해줘야 하고 , 해당 유형의 값만 가질수 있어 .
+
+int num= 5.0;  이렇게 하면 문제 생기잖아??
+
+
+그래서 C++에서는 templates 을 사용해
+
+
+template<class ItemType>
+void sort( ItemType A[], int count ) {
+      // Sort items in the array, A, into increasing order.
+      // The items in positions 0, 1, 2, ..., (count-1) are sorted.
+      // The algorithm that is used here is selection sort.
+   for (int i = count-1; i > 0; i--) {
+      int position_of_max = 0;
+      for (int j = 1; j <= i ; j++)
+         if ( A[j] > A[position_of_max] )
+            position_of_max = j;
+      ItemType temp = A[i];
+      A[i] = A[position_of_max];
+      A[position_of_max] = temp;
+   }
+}
+
+이걸로 다양한 type의 서브루틴을 찍어내는 거지 , 단일 서브루틴으로 보면 곤란해
+
+이런걸 C++에서는 SubRoutine Template라고 한다.
+
+Standard Template Library = STL 이라는 표준 템플릿도 존재함.
+
+
+그럼 자바는 어떨끼?
+
+
+초기에는 Object 클래스를 가지고 Generic Programing을 구현했어
+
+어차피 모든 것들은 Object의 subType이니까 , ArrayList가 Object를 갖게 하는거지
+
+String 유형으로 ArrayList 의 get메서드 쓰고 싶으면
+
+String temp = (String)list.get(i);
+
+이런식으로 만들어 주늑너임
+
+
+근데 이거 컴파일 타임에 type check를 못해
+
+런타임에서만 잡을 수 있단 말이야
+
+
+이러면 오류갑 라생할 가능성이 높아.
+
+
+그래서 도입한 것이 Parameterized Type임
+
+이러면 ArrayList<String>의 경우 String아닌 값을 넣으면 에러나옴
+
+
+The Java Collection Framework
+
+
+자바는 일반적으로 사용되는 자료구조를 paramererized type으로 구현해 놓은게 있어
+
+그게 Java Collection Framework임
+
+
+Collection Framework는 크게 2가지 타입으로 나뉘는데
+
+collections 과 maps로 나뉘어
+
+collections은 말 그대로 데이터를 모아놓는 거야 , 저장하고 연결하는 것
+
+Collection<T> 이런 느낌인거지
+
+map은 좀 느낌이 다른게 얘는  association list (연관된 목록)에 가까워
+
+key , value 쌍으로 묶인다고
+
+Map<T,S> 이런식으로 말이지
+
+
+
+더 작은 개념으로...
+
+collection 에는 list와 set으로 또 나뉘어
+
+list는 객체가 linear하게 , 즉 선형적으로 배열된 것을 의미해 , 얘는 순서가 있어서 indexing 을 통해서 값 얻기 가능해
+
+
+근데 set은 비선형 구조거든 따라서 순서가 없어 , 얘는 indexing 으로 값 못 얻어
+
+
+
+정리하면
+
+        Collection FrameWork
+
+    Colletions          Maps
+
+  list        set
+
+이런 느낌일 거야
+
+
+
+그리고 Colletion FramWork는 내장메서드도 갖고 있어용
+
+근데 얘는 interface거든 기본적으로
+
+따라서 List<Integer>list = new ArrayList<>(); 이런식으로 쓰는거야
+
+List라는 interface를 상속받는 클래스 ArrayList를 갖다 쓰겠다 임
+
+다른거롤는? List<Integer>list = new LinkedList<>(); 가 있을 수 있겠네요
+
+얘도 똑같이 List 라는 interface를 상속받는 클래스 LinkedList를 갖다 쓰겠다 임
+
+
+
+ Iterators and for-each Loops
+
+
+ Iterators 는 말 그대로 반복자야
+
+ 반복하는애가 왜 있을까?? , 뭘 반복한단 소리지
+
+ Collection은 여러가지 형식이 존재하잖아
+
+ linear한 애들이야 index0부터 찾아가서 훑으면 된다지만
+
+ set , map , tree 이런애들은 어떻게 할껀데?
+
+
+
+ 그래서 나온게 iterator야
+
+ 얘는 Collection을 traversal (순회)할 수 있도록 만들어 줘
+
+
+Collection<T> 이렇게 collection이 정의 돼 있듯이
+
+Iterator 도 Iterator<T> 이런 식으로 정의 돼 있어
+
+얘도 마찬가지로 interface지
+
+
+Iterator<T> 인터페이슨 딱 3가지 메서드만 갖고 있어
+
+iter.next();
+iter.hasnext();
+iter.remove();
+
+List<Integer>list = new ArrayList<>();
+
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+
+        Iterator<Integer>iter = list.iterator();
+
+
+        while(iter.hasNext()){
+            System.out.println(iter.next());
+        }
+
+ 사용은 다음과 같이 하면 됨 !
+
+
+
+Equality and Comparison
+
+
+근데 Collection 의 equality는 어떻게 확인 할까?
+
+어느 type이든 올 수 있잖아
+
+따라서 우리는 equals 메서드를 오버라이딩 해 줄 필요가 있어
+
+또한 Comparable , Comparator 를 상속받아서
+
+compareTo이런거 구현해주면 비교해서 정렬도 가능해져
+
+
+
+Generics and Wrapper Classes
+
+
+Generics는 앞에서도 말 했듯이 primitive는 올 수 없어
+
+근데 primitive 못 오는게 말이 되냐
+
+사실 그게 근본인데
+
+그런 논리로 꼼수 써서 만든게 Wrapper Class야
+
+int -> Integer
+char -> Character
+
+등등으로 primitive 를 감싸서 객체로 만든거야 , 그래서 Wrapper 클래스라고 부르는 거고
+
+
+primitive -> wrapper 이걸 Boxing
+
+wrapper -> primitive 이걸 UnBoxing 이라고 해
+
+또 자바는 AutoBoxing을 지원해서 자동으로 박싱 언박싱 알아서해줘
+
+따라서
+
+int num=5;
+Integer num2 =5;
+
+num=num+num2;
+
+이러면 에러 안뜨고 num은 10이야 , 알아서 바꿔주거든
+
+
+
+
+Lists and Sets
+
+
+List아래에 있는
+
+ArrayList , LinkedList 는
+
+둘다 dynamic array야
+
+이런애들은 메모리가 마치 무한한것처럼 쓰는 애들임
+
+이론상으로는 무한대의 원소도 넣을 수 있는거지
+
+
+ArrayList 와 LinkedList의 가장 큰 차이는
+
+Random Access , Sequential access 야
+
+
+ArrayList는 랜덤엑세스 가능인데
+
+왜냐면 얘는 주소가 묶여있어
+
+시작주소 + index 하면 해당 index의 주소 값이 나온다고
+
+따라서 아무렇게나 접근해도 문제가 없어요
+
+근데 LinkedList는 달라 , 얘는 주소가 묶여있지않고
+
+포인터처럼 다음 주소를 가르키고만 있단 말이야
+
+따라서 아무렇게나 접근 불가능하고
+
+순차적으로만 접근 가능해 , 이런 차이가 있어
+
+
+반대로 add , remove 이런게 계속 일어난다면
+
+LinkedList가 더 유리하겠지
+
+LinkedList는 double LinkedList 임
+
+뭔 말이냐면 node의 prev , next 를 갖고 있다는 소리여
+
+
+
+
+TreeSet and HashSet
+
+
+Set은 중복을 허용안해 , 또 linear하지 않아
+
+TreeSet은 이진정렬 트리와 유사해
+
+또 element가 오름차순으로 정렬되는 속성이 잇어
+
+만약 내가 자동정렬이 필요하다? 그럼 TreeSet쓰고
+
+아니면 HashSet 쓰면 돼
+
+또 HashSet은 이름에서 알 수 있듯이
+
+Hash Table를 사용해
+
+따라서 find , add , remove 가 Tree보다 매우 효율적이야
+
+순서가 중요하지 않으면 이거 쓰면 되겠지
+
+
+
+Maps
+
+얘는 연관된 쌍으로 묶여있는 애야
+
+<key,value> 이런 식으로 묶여있다고
+
+그래서 어떤 언어에서는 Map이라고 안하고  associative array 라고 부르기도 해
+
+
+얘도 마찬가지로 TreeMap , HashMap 이렇게 나뉘어
+
+TreeMap은 이전과 같게 , 키에 따라서 자동으로 정렬이 되는 애들이야
+
+그럼 Hash는 ??
+
+똑같이 HashTable쓰는거지
+
+따라서 대부분의 작업은 TreeMaps 보다 HashMaps가 더 빠르다
+
+
+
+ Hash Tables and Hash Codes
+
+ 여태 계속 HashTable이라는 말을 했는데
+
+ 그래서 이게 뭐야??
+
+ HashTable은 Hash Code를 써서 만든 Table이야
+ 이건 그냥 배열이라 봐도 문제 없어
+
+ 더 풀어서 말해보면
+
+ 해시 테이블은 key,value 쌍으로 저장하거든
+
+ key값만 알면 O(1)시간으로 바로 찾을수 있단 말이야
+
+ 이 key의 배열 index를 해당 key의 HashCode라고 해
+
+ 근데 이러면 머리아픈게
+
+ int 유형의 값이다 라고만 정해지면
+
+ 이걸 문제없이 처리하려면 가능한 key가 수십억개 있어야 하네?
+ 그럼 수십억개의 배열 공간을 할당해야 하네??
+ 이렇게 모든 key 값에 대해서 배열을 할당시키는건 불가능해
+
+ 머리가 아프지 그래서 key가 주어지면 HashFunction을 사용해
+ 해시코드를 계산함
+
+ 그래서 key값 그대로를 받는게 아니라 변환을 시켜서
+ index에 넣어줘
+
+ 충돌이 나기도하는데 , 이건 컨트롤하는 여러가지 테크닉이 존재함
+
+ 또 이렇게 하면 내가 넣은 key가 배열의 75%정도를 넘어서면
+
+ 다시 더 큰 배열을 만들어서 key값을 할당 시키거든
+
+ 좀 더 dynamic 하게 만들어서 메모리 낭비를 줄일 수 있지
+
+
+또 자바의 모든 객체는 hashCode 메서드를 갖고 있거든
+
+또 equality 를 어떻게 측정하냐면 hashcode 가 동일한지 여부로 봐
+따라서 equals를 오버라이딩 해줬다면 hashcode도 오버라이딩해서 써줘야 해
+
+
+
+ Using a Comparator
+
+
+ Comparator is a functional interface,
+ an easy way to specify the comparator is to use a lambda expression:
+
+(a,b) -> a.compareToIgnoreCase(b)
+
+
+index = new TreeMap<>( String::compareToIgnoreCase );
+
+이렇게도 가능하지 , 이런식으로 Comparator구현이 가능합니다.
+
+
+
+
+Writing Generic Classes and Methods
+
+
+자바에서는 메서드 뿐만 아니라 , Class , Interface 또한 Generic하게 만들 수 있음
+당연한거임
+
+애초에 List자체가  List<T>잖아
+
+class Queue<T> {
+   private LinkedList<T> items = new LinkedList<>();
+   public void enqueue(T item) {
+      items.addLast(item);
+   }
+   public T dequeue() {
+      return items.removeFirst();
+   }
+   public boolean isEmpty() {
+      return (items.size() == 0);
+   }
+}
+
+이런식으로 만드는거임
+
+원래는 어떄?
+
+class Queue<String> 이런게 와야하지
+
+Type을 지정해줘야 한다고 , 근데 이걸 <T>로 받는거야
+
+
+T는 그냥 이름같은거야 , 특정한 Type을 나타내는게 아님 , formal parameter임
+
+따라서 굳이 T일 이유는 없어
+
+class Queue<ItemType> {
+   private LinkedList<ItemType> items = new LinkedList<>();
+   public void enqueue(ItemType item) {
+      items.addLast(item);
+   }
+   public ItemType dequeue() {
+      return items.removeFirst();
+   }
+   public boolean isEmpty() {
+      return (items.size() == 0);
+   }
+}
+
+이렇게 만들어도 완전히 똑같은 거야
+
+
+
+그럼 Generic Method 는 어떨까?
+
+public static <T> int countOccurrences(T[] list, T itemToCount) {
+   int count = 0;
+   if (itemToCount == null) {
+      for ( T listItem : list )
+         if (listItem == null)
+            count++;
+   }
+   else {
+      for ( T listItem : list )
+         if (itemToCount.equals(listItem))
+            count++;
+   }
+   return count;
+}
+
+이렇게 반환 Type 앞에 <T>라고 명시해 놓는거야
+
+그리고 파라미터는 그냥 <T>타입으로 통일 시키는거지
+
+Wildcard Types
+
+우리가 <T>라고 두면 모든 Type이 다 올 수 있잖아
+
+근데 나는 모든 Type을 받고 싶진 않은거지
+
+Type에 제한을 두고 싶어 그떄 사용하는거야
+
+구현은 다음과 같아
+
+<? extends Number>
+
+이것 말고도 방법이 하나 더 있어
+
+Bounded Types
+
+<T extends Number>
+
+이런 식으로 구현돼
+
+그럼 두개의 차이는 뭘까??
+
+둘다 Type에 제한을 두는건 마찬가지지만
+
+Bounded Type은 여러개를 상속 받을 수 있어
+
+반면에 WildCard Type은 단 한개만 가능해
+
+public static <T extends Number
+            & Comparable<T>> T maximum(T x, T y, T z) {
+        T max = x;
+        if (y.compareTo(max) > 0) {
+            max = y;
+        }
+
+        if (z.compareTo(max) > 0) {
+            max = z;
+        }
+        return max;
+    }
+
+이런게 가능하단 소리
+
+반면에 wildCard는
+
+public static  void print(List<? extends Number> list) {
+
+        for(int i=0;i<list.size();i++){
+            System.out.println(list.get(i));
+        }
+
+    }
+
+
+
+Introduction the Stream API
+
+
+Stream 은 data 값의 sequence 값이야
+
+얘는 데이터의 집합을 잘 다루려고 만든거야
+
+Collection , Array , 내가 정의한 Type 등에 사용될 수 있어.
+
+기본적으로 API니까 연산의 셋트를 준다.
+
+또 Stream 연산은 기본적으로 람다 Expression 으로 받을 수 있어
+
+Making Streams
+
+스트림 API 를 사용하려면 먼저 스트림을 생성해야 한다.
+
+스트림은 두 가지 종류가 있는데
+
+sequential streams and parallel streams 이야
+
+sequential = 순차적 스트림
+parallel = 병렬 스트림
+
+순차적이라는 소리는 단일 프로세스에서 처리 된다는 소리
+병렬은 다중 프로세스에서 처리될 수 있다는 소리
+
+
+
+Operations on Streams
+
+가장 대표적으로 쓰이는게 filter , map 2 가지야
+
+filter 는 Predicate으로 , 조건을 달아주는 거야
+
+IntSteam.range(2,1000).filter(n -> isPrime(n) )
+
+이러면 2-1000 까지의 수중에 소수인 것만 거를 수 있게 되는거지
+
+map은 각 스트림의 값에 함수를 적용해줘
+
+list.stream().filter(x -> (x != null)).map(x -> x.toLowerCase())
+                .forEach(s-> System.out.println(s));
+
+필터로 null인건 걸러지고 , map으로 걸러진 String을 소문자로 만들어 주는것임
+
+그리고 forEach(각각) 출력시켜줘
+
+
+또 Stream에서 변한 값은 실제로 변하진 않아
+
+얘는 그냥 흐름이랑 똑같은 거거든 , 원본 데이터에 영향을 주지 않아
+
+String longest = words.parallelStream()
+                      .max( (s1,s2) -> s1.length() - s2.length() )
+                      .get();
+
+이렇게 가장 긴 문자열을 얻을 수도 있음
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
