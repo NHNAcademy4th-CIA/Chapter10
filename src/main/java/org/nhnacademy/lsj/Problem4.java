@@ -9,10 +9,16 @@ import java.util.function.Predicate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * T 타입의 객체를 만들고 Predicate를 이용해 테스트하는 프로그램.
+ */
 public class Problem4 {
 
     private static final Logger logger = LoggerFactory.getLogger(Problem4.class);
 
+    /**
+     * list에 add한 후  -> predicate를 람다표현식으로 나타내 , 결과를 출력.
+     */
     public static void problem4() {
 
         List<Integer> list = new ArrayList<>();
@@ -41,8 +47,8 @@ public class Problem4 {
         stk.push("3이아닌");
         stk.push("bbb");
         stk.push("ccc");
-        stk.push("애들만살");
-        stk.push("아 남았습니다");
+        stk.push("애들은다");
+        stk.push("사랍니다.");
         stk.push("eee");
 
         Predicates.removeWithCondition(stk, s -> s.length() == 3, false);
@@ -97,6 +103,7 @@ class Predicates {
         Iterator<T> iterator = coll.iterator();
 
         int count = 0;
+
         while (iterator.hasNext()) {
 
             var value = iterator.next();

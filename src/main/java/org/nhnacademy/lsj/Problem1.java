@@ -5,8 +5,14 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * TreeMap을 사용하도록 PrhoneDirectory Class 정의.
+ */
 public class Problem1 {
 
+    /**
+     * add 및 print .
+     */
     public static void problem1() {
 
         PhoneEntry phoneEntry = new PhoneEntry();
@@ -39,7 +45,7 @@ class PhoneEntry {
     public void print() {
 
         for (var v : m.entrySet()) {
-            logger.info("이름 : {} , 번호 : {} ",v.getKey(),v.getValue());
+            logger.info("이름 : {} , 번호 : {} ", v.getKey(), v.getValue());
         }
 
     }

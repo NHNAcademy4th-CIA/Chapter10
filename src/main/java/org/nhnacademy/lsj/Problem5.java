@@ -7,11 +7,17 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Stream을 사용하여 메서드 구현.
+ */
 public class Problem5 {
 
 
     private static final Logger logger = LoggerFactory.getLogger(Problem5.class);
 
+    /**
+     * 학생 정보담고있는 배열 생성 . 및 메서드 테스트.
+     */
     public static void problem5() {
 
         ScoreInfo[] scoreData = new ScoreInfo[] {
@@ -35,7 +41,7 @@ public class Problem5 {
 
         logger.info("{}", countSize(scoreData));
         logger.info("{}", getAverageScore(scoreData));
-        logger.info("{}", printGradeA(scoreData));
+        logger.info("{}", countGradeA(scoreData));
         logger.info("{}", creatListUnder70(scoreData));
         printScoreByNameOrder(scoreData);
 
@@ -47,23 +53,47 @@ public class Problem5 {
     }
 
 
+    /**
+     * size 체크.
+     *
+     * @param scoreInfos 학생배열.
+     * @return 사이즈.
+     */
     public static long countSize(ScoreInfo[] scoreInfos) {
 
         return Arrays.stream(scoreInfos).count();
 
     }
 
+    /**
+     * 평균 구하는 메서드.
+     *
+     * @param scoreInfos 학생배열.
+     * @return 평균.
+     */
     public static double getAverageScore(ScoreInfo[] scoreInfos) {
 
         return Arrays.stream(scoreInfos).mapToInt(x -> x.getScore())
                 .average().getAsDouble();
     }
 
-    public static long printGradeA(ScoreInfo[] scoreInfos) {
+    /**
+     * A학점 이상 == 90점이상 학생 수 구하기.
+     *
+     * @param scoreInfos 학생배열.
+     * @return A이상 학생 수.
+     */
+    public static long countGradeA(ScoreInfo[] scoreInfos) {
         return Arrays.stream(scoreInfos).filter(x -> x.getScore() >= 90)
                 .count();
     }
 
+    /**
+     * 70점 미만의 학생을 갖는 리스트 생성.
+     *
+     * @param scoreInfos 학생배열.
+     * @return 리스트.
+     */
     public static List<String> creatListUnder70(ScoreInfo[] scoreInfos) {
 
         List<String> list = new ArrayList<>();
@@ -74,6 +104,11 @@ public class Problem5 {
         return list;
     }
 
+    /**
+     * 이름 오름차순으로 정렬한 후 출력.
+     *
+     * @param scoreInfos 학생배열.
+     */
     public static void printScoreByNameOrder(ScoreInfo[] scoreInfos) {
 
         Arrays.stream(scoreInfos).sorted(new Comparator<ScoreInfo>() {
@@ -87,6 +122,11 @@ public class Problem5 {
 
     }
 
+    /**
+     * 점수 오름차순으로 정렬한 후 출력.
+     *
+     * @param scoreInfos 학생배열.
+     */
     public static void printScoreByScoreOrder(ScoreInfo[] scoreInfos) {
 
         Arrays.stream(scoreInfos).sorted(new Comparator<ScoreInfo>() {

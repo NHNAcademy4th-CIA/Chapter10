@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 집합 2개가 있을때 집합의 교집합 , 합집합 ,  차지합 구하는 문제.
+ */
 public class Problem2 {
 
 
@@ -18,13 +21,18 @@ public class Problem2 {
     private static final Scanner sc = new Scanner(System.in);
 
 
+    /**
+     * set , set2 집합 2개 만들기 -> 연산자 받기(연산자가 차집합,여집합,합집합 결정).
+     * -> 그거에 따른 결과 print.
+     */
     public static void problem2() {
 
 
         while (true) {
 
-            TreeSet<Integer> set = new TreeSet<>();
-            TreeSet<Integer> set2 = new TreeSet<>();
+            TreeSet<Integer> set;
+
+            TreeSet<Integer> set2;
 
             logger.info("첫 번째 집합을 만듭니다");
             set = creatTreeSet();
@@ -39,7 +47,7 @@ public class Problem2 {
             } else if (operator.equals("*")) {
                 printByCondition(set, set2, true);
             } else if (operator.equals("-")) {
-                printByCondition(set,set2,false);
+                printByCondition(set, set2, false);
             }
 
 
@@ -51,6 +59,16 @@ public class Problem2 {
     }
 
 
+    /**
+     * 교집합과 , 차집합은 거의 동일한 논리 구조를 가짐.
+     * 교집합 = 집합1의 원소가 집합2에 있는 것 .
+     * 차집합 = 집합1의 원소가 집합2에 없는 것.
+     * 따라서 하나의 메서드로 Procedure Abstraction 함.
+     *
+     * @param set  집합1.
+     * @param set2 집합2.
+     * @param flag condition.
+     */
     public static void printByCondition(TreeSet<Integer> set, TreeSet<Integer> set2,
                                         boolean flag) {
 
@@ -66,6 +84,12 @@ public class Problem2 {
         printSet(result);
     }
 
+    /**
+     * 합집합  출력하는 메서드 .
+     *
+     * @param set  집합1.
+     * @param set2 집합2.
+     */
     public static void printAddAll(TreeSet<Integer> set, TreeSet<Integer> set2) {
 
         TreeSet<Integer> result = new TreeSet<>();
@@ -76,6 +100,11 @@ public class Problem2 {
         printSet(result);
     }
 
+    /**
+     * 집합을 출력하는 메서드를 분리함.
+     *
+     * @param result 출력할 집합.
+     */
     public static void printSet(TreeSet<Integer> result) {
         Iterator iterator = result.iterator();
 
@@ -95,6 +124,11 @@ public class Problem2 {
         logger.info("{}", sb);
     }
 
+    /**
+     * 연산자가 올바른지 판별하고 잘못된 경우 입력 재귀적으로 받음.
+     *
+     * @return 올바른 연산자.
+     */
     public static String setOperator() {
 
         logger.info("연산자를 입력해 주세요");
@@ -112,6 +146,12 @@ public class Problem2 {
         return str;
     }
 
+    /**
+     * 집합을 양식에 맞게 입력받아 생성함 .
+     * 양식 : 시작은 [ 끝은 ]   정수들은 , 로 구분.
+     *
+     * @return 집합.
+     */
     public static TreeSet<Integer> creatTreeSet() {
 
         TreeSet<Integer> set = new TreeSet<>();

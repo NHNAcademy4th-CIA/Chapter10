@@ -6,9 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
+/**
+ * 변수 및 상수를 계산하는 결과 값 프로그램.
+ */
 public class Problem7 {
 
 
+    /**
+     * 프로그램 시작 부.
+     */
     public static void problem7() {
 
         SimpleInterpreter.run();
