@@ -7,8 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * .symbol table : 키는 함수의 이름, 값은 함수를 나타내는 StandardFunction type 객체
- * 기존의 SimpleInterpreter에 StandardFunction에 해당하는 연산을 추가
+ * .symbol table : 정의된 각 변수에 대한 값을 보유, <이름, 변수값(double)>
+ * 기존의 SimpleInterpreter에 StandardFunction에 해당하는 연산을 추가하여 작성
  */
 public class Exercise7 {
 
@@ -82,9 +82,11 @@ public class Exercise7 {
 
     /**
      * .symbol table에 sin, cos, tan, sqrt, abs, log를 추가하고
-     * 가장 처음 단어가 print면 expression을 계산,
+     * 가장 처음 단어가 print면 expression을 계산, => primaryValue()에서 expression이 isLetter()일 때 variable인지 StandardFunction인지 symbolTable의 value값을 통해 판별
+     * variable이면 변수값을 리턴해 계산하도록 한다
+     * StandardFunction이면 괄호 안의 수식을 계산해야하므로 expressionValue()를 통해 얻은 결과값을 StandardFunction의 evaluate(계산) 메서드에 넣고 해당 계산값을 리턴한다.
      * let이면 <variable name, expression result>형태로 변수를 symbol table에 저장한다.
-     * 조건 : word를 마주하면 variable인지 StandardFunctiond인지 판별해야 한다. => instanceof를 사용
+     * 조건 : word를 마주하면 variable(double)인지 StandardFunctiond인지 판별해야 한다. => instanceof를 사용
      */
     public static void exercise7() {
 
@@ -208,6 +210,7 @@ public class Exercise7 {
 
     /**
      * Read a term from the current line of input and return its value.
+     * term value : mathematical operations occur in an algebraic expression
      */
     private static double termValue() throws ParseError {
         TextIO.skipBlanks();
@@ -234,6 +237,7 @@ public class Exercise7 {
      * (Note:  The exponentiation operator, "^", is right associative.  That is,
      * a^b^c means a^(b^c), not (a^b)^c.  The BNF definition of primary takes
      * this into account.
+     * factor : any number that can be multiplied by another number to equal the desired number
      */
     private static double factorValue() throws ParseError {
         TextIO.skipBlanks();
