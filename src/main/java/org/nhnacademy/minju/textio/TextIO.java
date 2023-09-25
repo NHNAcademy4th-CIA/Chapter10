@@ -1,4 +1,4 @@
-package org.nhnacademy.textio;
+package org.nhnacademy.minju.textio;
 
 import java.io.*;
 import java.util.IllegalFormatException;
