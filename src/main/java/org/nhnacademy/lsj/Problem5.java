@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,12 +97,13 @@ public class Problem5 {
      */
     public static List<String> creatListUnder70(ScoreInfo[] scoreInfos) {
 
-        List<String> list = new ArrayList<>();
 
-        Arrays.stream(scoreInfos).filter(x -> x.getScore() < 70)
-                .forEach(x -> list.add(x.getFirstName() + " " + x.getLastName()));
+        // Collectors.
 
-        return list;
+        return Arrays.stream(scoreInfos).filter(x -> x.getScore() < 70)
+                .map(x->x.getLastName()+" "+x.getFirstName())
+                .collect(Collectors.toList());
+
     }
 
     /**
