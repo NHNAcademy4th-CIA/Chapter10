@@ -35,8 +35,14 @@ public class Exercise2 {
         }
     }
 
+    /**
+     * .operationRegex(+, -, *)를 사용하여 operator의 인덱스를 찾는다.
+     * 해당 인덱스를 기준으로 split해 문자열을 toSet()으로 set으로 만든다.
+     * operator에 따라 set 연산
+     * @param input input
+     */
     private static void calcSet(String input) {
-        //
+
         TreeSet<Integer> set1;
         TreeSet<Integer> set2;
         char operator;
@@ -50,8 +56,8 @@ public class Exercise2 {
         } else {
             throw new IllegalArgumentException("부적절한 형식");
         }
-        set1 = checkSet(input.substring(0, opIndex - 1).trim().split(","));
-        set2 = checkSet(input.substring(opIndex + 1).trim().split(","));
+        set1 = toSet(input.substring(0, opIndex - 1).trim().split(","));
+        set2 = toSet(input.substring(opIndex + 1).trim().split(","));
 
         logger.info("{} {} {}", set1, operator, set2);
         switch (operator) {
@@ -74,13 +80,13 @@ public class Exercise2 {
     }
 
     /**
-     * .[] 위치 확인
-     * [] 앞 뒤 , 확인
+     * .문자열을 set으로 바꾼다
+     * 조건 : [] 위치 확인
      *
      * @param inputSplit "," split
      * @return set
      */
-    private static TreeSet<Integer> checkSet(String[] inputSplit) {
+    private static TreeSet<Integer> toSet(String[] inputSplit) {
         TreeSet<Integer> set = new TreeSet<>();
         for (int i = 0; i < inputSplit.length; i++) {
             inputSplit[i] = inputSplit[i].trim();
