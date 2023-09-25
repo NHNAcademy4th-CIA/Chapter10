@@ -84,15 +84,14 @@ public class Exercise2 {
         TreeSet<Integer> set = new TreeSet<>();
         for (int i = 0; i < inputSplit.length; i++) {
             inputSplit[i] = inputSplit[i].trim();
-            if ((i != 0 && inputSplit[i].charAt(0) == ('[') ||
-                    (i != inputSplit.length - 1 && inputSplit[i].charAt(0) == (']')))) {
+            if ((i != 0 && inputSplit[i].charAt(0) == ('[')
+                    || (i != inputSplit.length - 1 && inputSplit[i].charAt(0) == (']')))) {
                 throw new IllegalArgumentException("bracket이 부적절한 위치에 있다.");
             }
             if (i == 0) {
                 inputSplit[i] = inputSplit[i].substring(1).trim();
-            }
-            else if (i == inputSplit.length - 1) {
-                inputSplit[i] = inputSplit[i].substring(0, inputSplit[i].length()-1).trim();
+            } else if (i == inputSplit.length - 1) {
+                inputSplit[i] = inputSplit[i].substring(0, inputSplit[i].length() - 1).trim();
             }
             if (Pattern.matches(numericRegex, inputSplit[i])) {
                 set.add(Integer.parseInt(inputSplit[i]));
