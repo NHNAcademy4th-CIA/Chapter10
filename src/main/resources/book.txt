@@ -1,0 +1,7 @@
+theApple
+n example in Subsection 10.4.2 concerns the problem of making an index for a book.
+A related problem is making a concordance for a document.
+A concordance lists every word that occurs in the document,
+and for each word it gives the line number of every line in the document where the word occurs.
+All the subroutines for creating an index that were presented in Subsection 10.4.2 can also be used to create a concordance.
+The only real difference is that the integers in a concordance are line numbers rather than page numbers.

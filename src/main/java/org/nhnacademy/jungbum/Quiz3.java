@@ -3,14 +3,29 @@ package org.nhnacademy.jungbum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/***
+ * HashMap구현
+ */
+
 public class Quiz3 {
-    public static void main(String[] args) {
-        Table table = new Table(2);
-        String key;
-        String value;
+    private Logger logger = LoggerFactory.getLogger(Quiz3.class);
+
+    public Quiz3() {
+        Table table = new Table(100);
+        table.put("1", "aqsd");
+
+        logger.info("검색 결과{}", table.get("1"));
+        logger.info("삭제 요청");
+        table.remove("1");
+
+        logger.info("검색 결과 존재하는가? : {}", table.containsKey("1"));
+        logger.info("현재 사이즈는? {}", table.size());
     }
 }
 
+/***
+ * 노드 정의
+ */
 class Node {
     private String key;
     private String value;
@@ -41,36 +56,30 @@ class Node {
     }
 }
 
+/***
+ * 노드 테이블 정의
+ */
 class Table {
     private Logger logger = LoggerFactory.getLogger(Quiz3.class);
     private Node[] table;
 
     private int count;
 
-    public Table() {
-        table = new Node[10];
-    }
-
-
-    public Table(int initialSize) {
-        if (initialSize <= 0)
+    /***
+     * 생성자
+     * @param init 배열 공간
+     */
+    public Table(int init) {
+        if (init <= 0)
             throw new IllegalArgumentException("테이블 사이즈가 0이하다.");
-        table = new Node[initialSize];
+        table = new Node[init];
     }
 
-    void dump() {
-        for (int i = 0; i < table.length; i++) {
-
-            logger.info("{} :", i);
-            Node list = table[i];
-            while (list != null) {
-                logger.info("  ({},{})", list.getKey(), list.getValue());
-                list = list.getNext();
-            }
-            System.out.println();
-        }
-    }
-
+    /***
+     * 생성
+     * @param key 입력할 키
+     * @param value 입력할 밸류
+     */
     public void put(String key, String value) {
 
         if (key == null) {
@@ -78,7 +87,7 @@ class Table {
         }
 
 
-        int bucket = hash(key);
+        int bucket = key.hashCode();
 
         Node list = table[bucket];
         while (list != null) {
@@ -91,12 +100,7 @@ class Table {
 
             list.setValue(value);
         } else {
-
-            if (count >= 0.75 * table.length) {
-
-                resize();
-                bucket = hash(key);
-            }
+            resize();
             Node newNode = new Node();
             newNode.setKey(key);
             newNode.setValue(value);
@@ -106,10 +110,14 @@ class Table {
         }
     }
 
-
+    /***
+     * 불러오기
+     * @param key 조회할 키
+     * @return 불러온 밸류
+     */
     public String get(String key) {
 
-        int bucket = hash(key);
+        int bucket = key.hashCode();
 
         Node list = table[bucket];
         while (list != null) {
@@ -124,9 +132,13 @@ class Table {
     }
 
 
+    /***
+     * 삭제
+     * @param key 삭제할 키
+     */
     public void remove(String key) {
 
-        int bucket = hash(key);
+        int bucket = key.hashCode();
         if (table[bucket] == null) {
             return;
         }
@@ -153,9 +165,14 @@ class Table {
     }
 
 
+    /***
+     * 같은게 있는지
+     * @param key 조회할키
+     * @return 같은게잇다면 true
+     */
     public boolean containsKey(String key) {
 
-        int bucket = hash(key);
+        int bucket = key.hashCode();
         Node list = table[bucket];
         while (list != null) {
             if (list.getKey().equals(key))
@@ -167,23 +184,25 @@ class Table {
     }
 
 
+    /***
+     * size
+     * @return table size
+     */
     public int size() {
         return count;
     }
 
 
-    private int hash(Object key) {
-        return (Math.abs(key.hashCode())) % table.length;
-    }
-
-
+    /***
+     * 사이즈 재할당
+     */
     private void resize() {
         Node[] newtable = new Node[table.length * 2];
         for (int i = 0; i < table.length; i++) {
             Node list = table[i];
             while (list != null) {
                 Node next = list.getNext();
-                int hash = (Math.abs(list.getKey().hashCode())) % newtable.length;
+                int hash = list.getKey().hashCode();
 
                 list.setNext(newtable[hash]);
                 newtable[hash] = list;
