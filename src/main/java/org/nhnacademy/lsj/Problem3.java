@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 public class Problem3 {
 
 
+    private static final int TABLE_SIZE = 1024;
     private static final Logger logger = LoggerFactory.getLogger(Problem3.class);
 
     /**
@@ -17,7 +18,7 @@ public class Problem3 {
      */
     public static void problem3() {
 
-        node[] table = new node[1024];
+        node[] table = new node[TABLE_SIZE];
 
         put(table, "this", "1");
         put(table, "this", "2");
@@ -45,7 +46,7 @@ public class Problem3 {
      */
     public static void put(node[] table, String key, String value) {
 
-        int index = key.hashCode() % 1024;
+        int index = key.hashCode() % TABLE_SIZE;
 
         if (table[index] == null) {
             table[index] = new node(value);
@@ -70,7 +71,7 @@ public class Problem3 {
      * @return node.
      */
     public static node get(node[] table, String key) {
-        return table[key.hashCode() % 1024];
+        return table[key.hashCode() % TABLE_SIZE];
     }
 
     /**
@@ -81,7 +82,8 @@ public class Problem3 {
      */
     public static void remove(node[] table, String key) {
 
-        int index = key.hashCode() % 1024;
+        int index = key.hashCode() % TABLE_SIZE;
+
 
         table[index] = null;
     }
@@ -95,7 +97,7 @@ public class Problem3 {
      */
     public static boolean containKey(node[] table, String key) {
 
-        int index = key.hashCode() % 1024;
+        int index = key.hashCode() % TABLE_SIZE;
 
         return table[index] != null;
 
@@ -154,9 +156,6 @@ class node {
         this.next = next;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
 
     public String getValue() {
         return value;
