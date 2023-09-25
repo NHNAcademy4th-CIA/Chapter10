@@ -55,6 +55,13 @@ public class Exercise6 {
         }
     }
 
+    /**
+     * .TreeSet에 Integer(줄 number) 삽입
+     * @param word 단어
+     * @param lineNumber 줄 number
+     * @param concordance TreeMap<String, TreeSet<Integer>> => word와 일치하는 단어가 TreeMap 내에 존재하는지 확인,
+     *                    존재하면 Set에 lineNumber 추가, 부재 시 새로운 TreeSet을 생성해 lineNumber를 넣고 해당 TreeSet을 concordance에 넣는다.
+     */
     private static void insertItem(String word, int lineNumber, TreeMap<String, TreeSet<Integer>> concordance) {
         TreeSet<Integer> lineNumberSet = concordance.get(word);
 
@@ -68,6 +75,12 @@ public class Exercise6 {
         lineNumberSet.add(lineNumber);
     }
 
+    /**
+     * .파일에 concordance를 적는다. entrySet을 사용하여 key와 value를 한 줄에 적고 newLine()으로 한 줄 띄어 쓴다.
+     * @param concordance TreeMap
+     * @param bufferedWriter BufferedWriter FileWriter
+     * @throws IOException BufferedWriter
+     */
     private static void writeConcordance(TreeMap<String, TreeSet<Integer>> concordance, BufferedWriter bufferedWriter)
             throws IOException {
         for (Map.Entry<String, TreeSet<Integer>> entry : concordance.entrySet()) {
