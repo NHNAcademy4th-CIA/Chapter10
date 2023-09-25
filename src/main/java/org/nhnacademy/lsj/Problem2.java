@@ -50,6 +50,13 @@ public class Problem2 {
                 printByCondition(set, set2, false);
             }
 
+            logger.info("프로그램을 계속하려면 Y 아니라면 아무키나 눌러주세요");
+
+            String check = sc.nextLine();
+
+            if (!check.equals("Y")) {
+                break;
+            }
 
         }
 
@@ -74,13 +81,9 @@ public class Problem2 {
 
         TreeSet<Integer> result = new TreeSet<>();
 
-        Iterator iterator = set.iterator();
-        Iterator iterator2 = set2.iterator();
-
-
         set.stream().filter(x -> set2.contains(x) == flag)
                 .forEach(x -> result.add(x.intValue()));
-        // true면 합집합 , false 면 차집합
+        // true면 교집합 , false 면 차집합
         printSet(result);
     }
 
