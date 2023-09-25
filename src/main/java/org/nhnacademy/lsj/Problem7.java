@@ -354,25 +354,24 @@ class SimpleInterpreter {
             if (obj instanceof Double) {
                 Double val = (Double) obj;
                 return val.doubleValue();
-            } else {
-
-                StandardFunction func = (StandardFunction) obj;
-
-                TextIO.skipBlanks();
-
-                if (TextIO.peek() != '(') {
-                    throw new ParseError("Parenthesis missing after standard function");
-                }
-                TextIO.getChar(); // discard the '('
-                double argument = expressionValue();  // read and evaluate expression
-                TextIO.skipBlanks();
-                if (TextIO.peek() != ')') {
-                    throw new ParseError("Missing right parenthesis.");
-                }
-                TextIO.getChar(); // discard the ')'
-                return func.evaluate(argument);
-
             }
+
+            StandardFunction func = (StandardFunction) obj;
+
+            TextIO.skipBlanks();
+
+            if (TextIO.peek() != '(') {
+                throw new ParseError("Parenthesis missing after standard function");
+            }
+            TextIO.getChar(); // discard the '('
+            double argument = expressionValue();  // read and evaluate expression
+            TextIO.skipBlanks();
+            if (TextIO.peek() != ')') {
+                throw new ParseError("Missing right parenthesis.");
+            }
+            TextIO.getChar(); // discard the ')'
+
+            return func.evaluate(argument);
 
 
         } else if (ch == '(') {
