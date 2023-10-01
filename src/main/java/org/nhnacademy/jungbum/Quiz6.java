@@ -35,7 +35,7 @@ public class Quiz6 {
  * 낱말 사전
  */
 class WordDictionary {
-    private TreeMap<String,List<Integer>> wordDictionary;
+    private TreeMap<String,Set<Integer>> wordDictionary;
     public WordDictionary(){
         wordDictionary = new TreeMap<>();
     }
@@ -54,12 +54,12 @@ class WordDictionary {
             if(word.length()<4)
                 continue;
             if(wordDictionary.containsKey(word)) {
-                List<Integer> tmp =wordDictionary.get(word);
+                Set<Integer> tmp =wordDictionary.get(word);
                 tmp.add(i);
                 wordDictionary.put(word,tmp);
                 continue;
             }
-            wordDictionary.put(word, Arrays.asList(i));
+            wordDictionary.put(word, Set.of(i));
         }
     }
 
@@ -67,7 +67,7 @@ class WordDictionary {
      * 디렉토리 조회
      * @return
      */
-    public TreeMap<String,List<Integer>> getWordDictionary(){
+    public TreeMap<String,Set<Integer>> getWordDictionary(){
         return wordDictionary;
     }
 

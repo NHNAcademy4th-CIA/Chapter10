@@ -67,23 +67,25 @@ class Calc {
             }
             logger.info("{}",a.getSet());
             logger.info("{}",b.getSet());
-            switch (op) {
-                case "+":
-                    a.addAll(b);
-                    logger.info("{}", a.getSet());
-                    break;
-                case "-":
-                    a.removeAll(b);
-                    logger.info("{}", a.getSet());
-                    break;
-                case "*":
-                    a.retrainAll(b);
-                    logger.info("{}", a.getSet());
-                    break;
-            }
+            printResult();
         }
     }
-
+    private void printResult(){
+        switch (op) {
+            case "+":
+                a.addAll(b);
+                logger.info("{}", a.getSet());
+                break;
+            case "-":
+                a.removeAll(b);
+                logger.info("{}", a.getSet());
+                break;
+            case "*":
+                a.retrainAll(b);
+                logger.info("{}", a.getSet());
+                break;
+        }
+    }
     /***
      * 숫자가 아닐때 예외처리
      * @param num 숫자후보
