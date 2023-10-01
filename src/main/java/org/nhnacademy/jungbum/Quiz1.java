@@ -1,10 +1,7 @@
 package org.nhnacademy.jungbum;
 
 
-import java.util.Map;
-import java.util.Scanner;
-import java.util.StringTokenizer;
-import java.util.TreeMap;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +17,7 @@ public class Quiz1 {
         logger.info("전화번호부에 추가할 사람을 이름 전화번호 순으로 입력해주세요.(만약 끝내고싶다면 빈칸을 입력해주세요)");
         try {
             phoneBook.addNumber();
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException |NoSuchElementException e) {
             logger.warn(e.toString());
         }
         logger.info("전화번호부에 등록된 모든사람을 조회합니다.");
