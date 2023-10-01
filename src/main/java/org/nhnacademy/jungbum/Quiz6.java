@@ -49,7 +49,7 @@ class WordDictionary {
         String[] words =line.split(" ");
         for(String word:words)
         {
-            if(word.toLowerCase().contains("the"))
+            if(word.equalsIgnoreCase("the"))
                 continue;
             if(word.length()<4)
                 continue;
