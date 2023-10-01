@@ -1,4 +1,4 @@
-package org.nhnacademy;
+package org.nhnacademy.jungbum;
 
 import org.nhnacademy.jungbum.*;
 
