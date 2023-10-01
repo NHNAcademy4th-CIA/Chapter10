@@ -54,8 +54,7 @@ class WordDictionary {
             if(word.length()<4)
                 continue;
             if(wordDictionary.containsKey(word)) {
-                List<Integer> tmp = new ArrayList<>();
-                tmp.addAll(wordDictionary.get(word));
+                List<Integer> tmp =wordDictionary.get(word);
                 tmp.add(i);
                 wordDictionary.put(word,tmp);
                 continue;
@@ -73,4 +72,3 @@ class WordDictionary {
     }
 
 }
-

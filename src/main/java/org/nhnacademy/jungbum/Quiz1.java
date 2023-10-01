@@ -33,6 +33,8 @@ public class Quiz1 {
  * 전화번호부
  */
 class PhoneDirectory {
+    private static final Logger logger = LoggerFactory.getLogger(Quiz1.class);
+
     private static Scanner scanner = new Scanner(System.in);
 
     private TreeMap<String, String> PhoneEntry;
@@ -72,7 +74,7 @@ class PhoneDirectory {
      */
     public void print() {
         for (Map.Entry<String, String> entry : PhoneEntry.entrySet())
-            System.out.println(entry.getKey() + ":  " + entry.getValue());
+            logger.info(entry.getKey() + ":  " + entry.getValue());
     }
 
 }
