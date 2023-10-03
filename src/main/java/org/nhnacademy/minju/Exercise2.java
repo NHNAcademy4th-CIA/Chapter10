@@ -29,7 +29,7 @@ public class Exercise2 {
         while (!(input = scanner.nextLine()).isBlank()) {
             try {
                 calcSet(input.trim());
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | ArithmeticException e) {
                 logger.warn(e.getMessage());
             }
         }
@@ -56,8 +56,8 @@ public class Exercise2 {
         } else {
             throw new IllegalArgumentException("부적절한 형식");
         }
-        set1 = toSet(input.substring(0, opIndex - 1).trim().split(","));
-        set2 = toSet(input.substring(opIndex + 1).trim().split(","));
+        set1 = toSet(input.substring(0, opIndex - 1).replace(" ", "").split(","));
+        set2 = toSet(input.substring(opIndex + 1).replace(" ", "").split(","));
 
         logger.info("{} {} {}", set1, operator, set2);
         switch (operator) {
@@ -101,6 +101,8 @@ public class Exercise2 {
             }
             if (Pattern.matches(numericRegex, inputSplit[i])) {
                 set.add(Integer.parseInt(inputSplit[i]));
+            } else {
+                throw new ArithmeticException("not numeric");
             }
         }
         return set;
