@@ -40,11 +40,11 @@ Collection안에 있는 set , map , tree 같은 경우에는
 
 linear하지 않습니다.
 
-따라서 순회에 상당히 골치가 아프기 때문에 iterator이란 애를 만들어
+따라서 순회에 상당히 골치가 아프기 때문에 iterator이란 애를 만들어 순회를 합니다.
 
-또 Collection<T> 이렇게 정의되어 있음으로
+또 Collection<T> 로 Generic하게 정의되어 있음으로
 
-Iterator또한 Iterator<T> 이렇게 정의되어 있어
+Collection을 순회하기 위한 Iterator도 Iterator<T> 로 정의되어 있습니다.
 ====
 
 * Question 7:
