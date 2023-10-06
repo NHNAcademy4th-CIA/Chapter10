@@ -1,9 +1,11 @@
 package org.nhnacademy.lsj;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -33,14 +35,21 @@ public class Problem6 {
 
         String fileName = sc.nextLine();
 
+        BufferedWriter bufferedWriter = null;
+
         try (BufferedReader bf = new BufferedReader(new FileReader(
                 new File("src/main/resources/" + fileName + ".txt")))) {
+
+
+            bufferedWriter = new BufferedWriter(new FileWriter("src/main/resources/concordance.txt"));
+
 
             String line;
             int index = 1;
 
             while ((line = bf.readLine()) != null) {
                 StringTokenizer stk = new StringTokenizer(line);
+
                 while (stk.hasMoreTokens()) {
                     String temp = stk.nextToken();
 
@@ -72,7 +81,11 @@ public class Problem6 {
             problem6();
         }
 
-        printBook(m);
+        try {
+            printBook(m, bufferedWriter);
+        } catch (IOException e) {
+            logger.warn("쓰지마세용");
+        }
 
     }
 
@@ -81,7 +94,8 @@ public class Problem6 {
      *
      * @param m map , 단어와 그 단어가 나온 줄 번호를 set으로 가짐.
      */
-    public static void printBook(TreeMap<String, TreeSet<Integer>> m) {
+    public static void printBook(TreeMap<String, TreeSet<Integer>> m, BufferedWriter bufferedWriter)
+            throws IOException {
 
         StringBuilder sb = new StringBuilder();
         for (var v : m.entrySet()) {
@@ -94,7 +108,9 @@ public class Problem6 {
                 sb.append(iterator.next()).append(" ");
             }
 
-            logger.info("{}", sb);
+            logger.info("{}", sb); // write 쓰기
+
+            bufferedWriter.write(sb.toString());
 
             sb.setLength(0);
 
