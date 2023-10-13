@@ -16,7 +16,7 @@ What is meant by generic programming and what is the alternative?
 [%collapsible%open]
 ====
 Generic Programing 의 기본 개념은 Type또한 변수화 해서
-외부에서 받겠다는 것임 .
+외부에서 받겠다는 것입니다 .
 
 이를 Parameterized Type이라 하고 , 대안으로는
 
